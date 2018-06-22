@@ -1,0 +1,43 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome {{ user.name }} to {{ title }}!
+    <!-- en ajoutant ? si la variable n'est pas créé alors ca ne plante pas. Sans le symbole ca plante -->
+    Welcome {{ user?.name }} to {{ title }}!
+    <!-- en pipant avec le mot clé json affiche l'objet -->
+    Welcome {{ user | json }} to {{ title }}!
+  </h1>
+  Deux façon d'affich&eacute;
+  <p> {{ user.name}} </p>
+  ou bien
+  <input type="text" #name/>
+  {{name.value}}
+  <!-- binding de propriété = [] ou binding d'évenemetn = () -->
+  <!-- $ permet de binder explicitement l'évenement -->
+  <p [hidden]="isHidden" [textContent]="user.name"></p>
+  <button (click)="function1($event, name)">click</button>
+
+  <!-- On rajoute des users -->
+  <br><br>
+  <input type="text" #name/>
+  <input type="text" #role/>
+  <button (click)="addUser(name.value,role.value)">addUser</button>
+  <!-- on test si null-->
+  <div *ngIf="usersService.length >= 0">
+    <div *ngFor="let user of users">{{user.name}} / {{user.role}} </div>
+  </div>
+  <div *ngIf="usersService.length === 0">Please enter one </div>
+
+  <!-- même version-->
+  <div [ngSwitch]="usersService.length" >
+    <div *ngSwitchCase="0">
+        Please enter one 
+    </div>
+    <div *ngSwitchCase="1">
+      You have one user
+    </div>
+    <div *ngSwitchCaseDefault>
+      You have lot of user
+    </div>
+  </div>
+
